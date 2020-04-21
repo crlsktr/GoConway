@@ -2,33 +2,30 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 )
 
-var size = 8
-
-func initializeBoard() [][]byte {
-	board := make([][]byte, size)
-	for i := 0; i < size; i++ {
-		board[i] = make([]byte, size)
-	}
-	return board
-}
+var size int = 8
 
 func main() {
 	// generateFile()
 	args := os.Args[1:]
-	board := initializeBoard()
-	data,_ := ioutil.ReadFile(args[0])
+	var inputFile, outputFile string
 
-	for i := 0; i < size; i++ {
-		for j := 0; j < size; j++ {
-			board[i][j] = data[(i*size)+j]
-		}
+	if len(args) > 1 {
+		inputFile = args[0]
+		outputFile = args[2]
+	} else {
+		inputFile = "input"
+		outputFile = "output"
 	}
 
-	for _,row := range board {
-		fmt.Println(row,",")
+	board := initializeBoard()
+	board = loadData(inputFile, board)
+	next := nextGeneration(board)
+
+	writeData(outputFile, next)
+	for _, row := range next {
+		fmt.Println(row, ",")
 	}
 }
