@@ -9,7 +9,8 @@ import (
 
 func loadData(fileName string, board [][]byte) [][]byte {
 	data, _ := ioutil.ReadFile(fileName)
-	fmt.Println("loaded data from file: ", fileName)
+	// fmt.Println("loaded data from file: ", fileName)
+	// fmt.Println("data:",data)
 	if float64(len(data)) == math.Pow(float64(size), 2) {
 		for i := 0; i < size; i++ {
 			for j := 0; j < size; j++ {
