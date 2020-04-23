@@ -23,7 +23,8 @@ func countNeighbors(board [][]byte, rowIndex int, columnIndex int) int {
 	count := 0
 	for _, i := range []int{-1, 0, 1} {
 		for _, j := range []int{-1, 0, 1} {
-			if (rowIndex+i >= 0 && rowIndex+i < len(board)) &&
+			if !(i == 0 && j == 0) &&
+				(rowIndex+i >= 0 && rowIndex+i < len(board)) &&
 				(columnIndex+j >= 0 && columnIndex+j < len(board)) {
 				if board[rowIndex+i][columnIndex+j] == 1 {
 					count++
