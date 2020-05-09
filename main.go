@@ -1,13 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"os"
 )
 
-var size int = 16
+var size int = 2000
 
 func main() {
-	// generateFile()
 	args := os.Args[1:]
 	var inputFile, outputFileName string
 
@@ -18,8 +18,10 @@ func main() {
 		generateFile()
 		return
 	} else {
-		inputFile = "input"
-		outputFileName = "output"
+		fmt.Println("Found no arguments, please provide arguments [inputFile] [outputFile]")
+		// inputFile = "input"
+		// outputFileName = "output"
+		return
 	}
 
 	board := initializeBoard()

@@ -1,5 +1,7 @@
 package main
 
+import "sync"
+
 func initializeBoard() [][]byte {
 	board := make([][]byte, size)
 	for i := 0; i < size; i++ {
@@ -9,14 +11,27 @@ func initializeBoard() [][]byte {
 }
 
 func nextGeneration(board [][]byte) [][]byte {
+	//TODO: change calculation to do 1 row at a time
 	newBoard := initializeBoard()
+	var waitGroup sync.WaitGroup
+
 	for ri, row := range board {
-		for ci, el := range row {
-			neighborsCount := countNeighbors(board, ri, ci)
-			newBoard[ri][ci] = cellLiveOrDie(neighborsCount, el)
-		}
+		waitGroup.Add(1)
+		go func(board [][]byte, row []byte, ri int){
+			newBoard[ri] = calculateNewRow(board, row, ri)
+			waitGroup.Done()
+		}(board, row, ri)
 	}
 	return newBoard
+}
+
+func calculateNewRow(board [][]byte, row []byte, ri int) []byte{
+	newrow := make([]byte, len(board)) //this is assuming that the board is always square
+	for ci, cell := range row {
+		neighborsCount := countNeighbors(board, ri, ci)
+		newrow[ci] = cellLiveOrDie(neighborsCount, cell)
+	}
+	return newrow
 }
 
 func countNeighbors(board [][]byte, rowIndex int, columnIndex int) int {

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"math"
 	"os"
@@ -21,21 +20,21 @@ func loadData(fileName string, board [][]byte) [][]byte {
 		println("data loaded is invalid or has the wrong size")
 	}
 
-	for _, row := range board {
-		fmt.Println(row)
-	}
+	// for _, row := range board {
+	// 	fmt.Println(row)
+	// }
 	return board
 }
 
 func writeData(fileName string, board [][]byte) {
-	fmt.Println("write data to file: ", fileName)
+	// fmt.Println("write data to file: ", fileName)
 	f, err := os.Create(fileName)
 	check(err)
 
 	defer f.Close()
 
 	for _, row := range board {
-		fmt.Println(row)
+		// fmt.Println(row)
 		f.Write(row)
 	}
 	f.Sync()

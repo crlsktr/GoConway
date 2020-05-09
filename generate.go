@@ -11,7 +11,7 @@ func check(e error) {
 }
 
 func generateFile() {
-	board := [][]byte{
+	initboard := [][]byte{
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
 		{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
@@ -28,6 +28,17 @@ func generateFile() {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
+	}
+
+	board := make([][]byte, size);
+	for i := range board {
+		board[i] = make ([]byte, size);
+	}
+
+	for i,row := range initboard {
+		for j,el := range row {
+			board[i][j] = el
+		}
 	}
 
 	f, err := os.Create("file")
@@ -41,7 +52,3 @@ func generateFile() {
 
 	f.Sync()
 }
-
-// func main() {
-// 	generateFile()
-// }
