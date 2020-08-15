@@ -24,6 +24,9 @@ func main() {
 	} else if len(args) == 1 && args[0] == "generate"{
 		generateFile()
 		return
+	} else if len(args) == 1 && args[0] == "server"{
+		startServer()
+		return
 	} else {
 		fmt.Println("Found no arguments, please provide arguments [inputFile] [outputFile] [numberOfGenerations]")
 		return
